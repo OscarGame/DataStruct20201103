@@ -6,39 +6,21 @@
 #include "TestFrame.h"
 
 #include "Stack.h"
+#include "DataStructType.h"
 
 
 
-#define TElemType int
-typedef struct BTNode
+TreeNode* CreateLeaf(int data)
 {
-	BTNode()
-	{
-		left = NULL;
-		right = NULL;
-		childIsVisualed = false;
-	}
-
-	TElemType data;
-	struct BTNode* left;
-	struct BTNode* right;
-	bool childIsVisualed = false;
-};
-
-
-
-BTNode* CreateLeaf(TElemType data)
-{
-	BTNode * node = new BTNode;
-	node->data = data;
-	node->left = NULL;
-	node->right = NULL;
+	TreeNode * node = new TreeNode(data);
+	node->left = nullptr;
+	node->right = nullptr;
 	return node;
 }
 
-BTNode* CreateBTree()
+TreeNode* CreateBTree()
 {
-	BTNode* top = CreateLeaf(1);
+	TreeNode* top = CreateLeaf(1);
 	top->left = CreateLeaf(2);
 	top->left->left = CreateLeaf(4);
 	top->left->right = CreateLeaf(5);
@@ -50,11 +32,11 @@ BTNode* CreateBTree()
 	return top;
 }
 
-void displayElem(BTNode* elem) 
+void displayElem(TreeNode* elem) 
 {
 	if (elem)
 	{
-		printf("%d ", elem->data);
+		printf("%d ", elem->val);
 	}
 	else 
 	{
@@ -66,7 +48,7 @@ void displayElem(BTNode* elem)
 
 
 
-void PreOrderTraverse(BTNode* node)
+void PreOrderTraverse(TreeNode* node)
 {
 	if (node)
 	{
@@ -76,34 +58,133 @@ void PreOrderTraverse(BTNode* node)
 	}
 }
 
-void PreOrderTraverse2(BTNode* node)
+struct PreOrderTraverse2Stack
 {
-	if (node)
+	TreeNode* stack[7];
+
+	PreOrderTraverse2Stack()
 	{
-		displayElem(node);
+		for (int i = 0 ;i < 7;i++)
+		{
+			//stack[i] = new TreeNode(0);
+		}
 	}
+
+	int top = -1;
+	void Push(TreeNode* node)
+	{
+		stack[++top] = node;
+	}
+
+	void Pop()
+	{
+		if (top == -1)
+			return;
+
+		top -= 1;
+	}
+
+	TreeNode* GetTopElement()
+	{
+		if (top == -1)
+		{
+			return NULL;
+		}
+		return stack[top];
+	}
+
+	bool IsEmpty()
+	{
+		return top == -1 ? true : false;
+	}
+};
+
+// ¸ù ×ó ÓÒ
+void PreOrderTraverse2(TreeNode* node)
+{
+	
+
+	PreOrderTraverse2Stack stack;
+	stack.Push(node);
+
+	while (!stack.IsEmpty())
+	{
+		TreeNode* left = stack.GetTopElement();
+		stack.Pop();
+
+		while (left)
+		{
+			displayElem(left);
+			if (left->right)
+			{
+				stack.Push(left->right);
+			}
+			left = left->left;
+		}
+	}
+
+}
+
+void PreOrderTraverse2Test()
+{
+	TreeNode* tree = CreateBTree();
+	PreOrderTraverse2(tree);
+}
+
+
+//·´×ªÊ÷
+void invertTree(TreeNode* tree)
+{
+	if (tree == nullptr)
+	{
+		return;
+	}
+
+	TreeNode* temp = tree->left;
+	tree->left = tree->right;
+	tree->right = temp;
+
+	invertTree(tree->left);
+	invertTree(tree->right);
+}
+
+
+void invertTreeTest()
+{
+	TreeNode* tree = CreateBTree();
+	invertTree(tree);
+
+	PreOrderTraverse(tree);
+}
+
+
+
+
+
+void TreeStackTest()
+{
+	TreeNode** arr = new TreeNode*[2];
+
+	TreeNode* top1 = CreateLeaf(1);
+	TreeNode* top2 = CreateLeaf(2);
+	arr[0] = top1;
+	arr[1] = top2;
+
+	ArrayStack<TreeNode> stack;
+	stack.Push(arr, top1);
+	stack.Push(arr, top2);
+
+	displayElem(stack.GetTopElement(arr));
+	displayElem(stack.GetTopElement(arr));
+	displayElem(stack.GetTopElement(arr));
+
 }
 
 void TreeTest()
 {
-	BTNode** arr = new BTNode*[2];
-
-	BTNode* top1 = CreateLeaf(1);
-	BTNode* top2 = CreateLeaf(2);
-	arr[0] = top1;
-	arr[1] = top2;
-
-
-	ArrayStack<BTNode> stack;
-	stack.Push(arr, top1);
-	stack.Push(arr, top2);
-
-
-	displayElem(stack.GetTopElement(arr));
-	displayElem(stack.GetTopElement(arr));
-	displayElem(stack.GetTopElement(arr));
-
+	//invertTreeTest();
+	PreOrderTraverse2Test();
 }
 
 
-//RegisterStruct RegisterTreeTest(&TreeTest);
+RegisterStruct RegisterTreeTest(&TreeTest);
