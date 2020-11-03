@@ -103,7 +103,6 @@ struct PreOrderTraverse2Stack
 void PreOrderTraverse2(TreeNode* node)
 {
 	
-
 	PreOrderTraverse2Stack stack;
 	stack.Push(node);
 
@@ -125,10 +124,108 @@ void PreOrderTraverse2(TreeNode* node)
 
 }
 
-void PreOrderTraverse2Test()
+void PreOrderTraverse3(TreeNode* node)
+{
+	PreOrderTraverse2Stack stack;
+	stack.Push(node);
+
+	TreeNode *p = nullptr;
+
+	while (!stack.IsEmpty())
+	{
+		p = stack.GetTopElement();
+
+		if (p)
+		{
+			displayElem(p);
+			stack.Pop();
+		}
+
+		if (p->right)
+		{
+			stack.Push(p->right);
+		}
+
+		if (p->left)
+		{
+			stack.Push(p->left);
+		}
+	}
+}
+
+
+
+//左 根  右  先遍历到最左边
+void InOderTraverse(TreeNode* node)
+{
+	PreOrderTraverse2Stack stack;
+	TreeNode* p = node;
+
+	while (p != NULL || !stack.IsEmpty())
+	{
+		//一直
+		while (p != NULL)
+		{
+			stack.Push(p);
+			p = p->left;
+		}
+		//到这里必然是走到子节点，同时 p=null
+		p = stack.GetTopElement();
+		displayElem(p);
+		stack.Pop();
+
+		p = p->right;
+	}
+
+}
+
+
+
+void PostOrderTraverse(TreeNode* tree)
+{
+	//TreeNode* treeArray[7];
+	//Push(treeArray, tree);
+	PreOrderTraverse2Stack stack;
+	stack.Push(tree);
+
+	TreeNode* p = tree;
+	TreeNode* last = tree;
+
+	while (!stack.IsEmpty())
+	{
+		p = stack.GetTopElement();
+		//	子节点的判断							根节点的判断(当前节点的右节点 == 上次访问过的 将该根节点Pop)
+		if ((p->left == nullptr && p->right == nullptr) || (p->right == last))
+		{
+			displayElem(p);
+			stack.Pop();
+			last = p;
+		}
+		else
+		{
+			if (p->right)
+			{
+				stack.Push(p->right);
+			}
+
+			if (p->left)
+			{
+				stack.Push(p->left);
+			}
+		}
+	}
+}
+
+
+void TraverseTest()
 {
 	TreeNode* tree = CreateBTree();
-	PreOrderTraverse2(tree);
+
+	//PreOrderTraverse2(tree);
+	//PreOrderTraverse3(tree);
+
+	//InOderTraverse(tree);
+	PostOrderTraverse(tree);
 }
 
 
@@ -183,7 +280,7 @@ void TreeStackTest()
 void TreeTest()
 {
 	//invertTreeTest();
-	PreOrderTraverse2Test();
+	TraverseTest();
 }
 
 
