@@ -32,6 +32,21 @@ TreeNode* CreateBTree()
 	return top;
 }
 
+TreeNode* CreateBTree2()
+{
+	TreeNode* top = CreateLeaf(1);
+	top->left = CreateLeaf(2);
+	top->left->left = CreateLeaf(4);
+	top->left->right = CreateLeaf(5);
+
+	top->right = CreateLeaf(3);
+	top->right->left = CreateLeaf(6);
+	//top->right->right = CreateLeaf(7);
+
+	return top;
+}
+
+
 void displayElem(TreeNode* elem) 
 {
 	if (elem)
@@ -217,15 +232,116 @@ void PostOrderTraverse(TreeNode* tree)
 }
 
 
+
+
+
+
+void TreeSumOfLeftLeaves(TreeNode* tree,int& sum)
+{
+	PreOrderTraverse2Stack stack;
+	stack.Push(tree);
+
+	TreeNode* cur = nullptr;
+
+	while (!stack.IsEmpty())
+	{
+		cur = stack.GetTopElement();
+		if (cur->left == nullptr && cur->right == nullptr)
+		{
+			sum += cur->val;
+			stack.Pop();
+		}
+		else
+		{
+			stack.Pop();
+
+			if (cur->right != nullptr)
+			{
+				stack.Push(cur->right);
+			}
+
+			if (cur->left != nullptr)
+			{
+				stack.Push(cur->left);
+			}
+		}
+			
+		
+	}
+
+}
+
+
+
+void LevelOrderTraverse(TreeNode* tree)
+{
+	struct FQueue
+	{
+		TreeNode* mQueue[7];
+		int front,rear;
+
+		FQueue() :front(0),rear(0)
+		{
+
+		}
+
+		void Enqueue(TreeNode* node)
+		{
+			if (node)
+				mQueue[rear++] = node;
+		}
+
+		TreeNode* DeQueue()
+		{
+			return mQueue[front++];
+		}
+
+		bool IsEmpty()
+		{
+			bool empty = front >= rear ? true : false;
+			return empty;
+		}
+	}queue;
+
+	queue.Enqueue(tree);
+
+	TreeNode* cur = nullptr;
+
+	while (!queue.IsEmpty())
+	{
+		cur = queue.DeQueue();
+		displayElem(cur);
+		if (cur->right)
+		{
+			queue.Enqueue(cur->right);
+		}
+
+		if (cur->left)
+		{
+			queue.Enqueue(cur->left);
+		}
+	}
+
+
+}
+
 void TraverseTest()
 {
-	TreeNode* tree = CreateBTree();
+	//TreeNode* tree = CreateBTree();
 
 	//PreOrderTraverse2(tree);
 	//PreOrderTraverse3(tree);
 
 	//InOderTraverse(tree);
-	PostOrderTraverse(tree);
+	//PostOrderTraverse(tree);
+
+	//=============================
+	TreeNode* tree = CreateBTree();
+	//int sum = 0;
+	//TreeSumOfLeftLeaves(tree,sum);
+	//cout << sum << endl;
+
+	LevelOrderTraverse(tree);
 }
 
 
