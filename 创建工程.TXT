@@ -1,3 +1,8 @@
 当前文件夹下创建build
 命令行 定位到这个文件夹
 cmake -G "Visual Studio 15 2017" ..
+
+
+
+git pull
+git push -u origin main
