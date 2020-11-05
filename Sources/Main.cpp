@@ -16,6 +16,7 @@ using namespace std;
 #include "NoRepeatCha.h"
 #include "FString.h"
 #include "Tree.h"
+#include "Queue.h"
 
 
 

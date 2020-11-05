@@ -400,4 +400,4 @@ void TreeTest()
 }
 
 
-RegisterStruct RegisterTreeTest(&TreeTest);
+//RegisterStruct RegisterTreeTest(&TreeTest);

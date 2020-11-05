@@ -6,31 +6,45 @@
 
 struct QueueNode
 {
+	QueueNode():val(-1),next(nullptr)
+	{
+
+	}
+
 	int val;
 	QueueNode* next;
 };
 
 //https://www.cnblogs.com/lanhaicode/p/10432004.html
-struct LinkQueue 
+class LinkQueue 
 {
+private:
 	QueueNode* front;
 	QueueNode* rear;
+public:
+	
 	
 	LinkQueue()
 	{
-		front = rear = new QueueNode;
-		front->next = nullptr;
+		front = rear = nullptr;
 	}
 
 	bool IsEmpty()
 	{
-		return front == rear ? true : false;
+		return front == nullptr;
 	}
 
 	void EnQueue(QueueNode* node)
 	{
-		rear->next = node;
-		rear = node;
+		if (IsEmpty())
+		{
+			rear = front = node;
+		}
+		else
+		{
+			rear->next = node;
+			rear = node;
+		}
 	}
 
 	QueueNode* DeQueue()
@@ -39,30 +53,9 @@ struct LinkQueue
 			return nullptr;
 
 		QueueNode* node = front;
-
 		front = front->next;
-
-		/*
-		
-		//出队列的节点为最后一个节点
-		if (front->next == rear)
-		{
-			node = front;
-
-			//rear = front;
-			//front->next = nullptr;
-		}
-		//
-		else
-		{
-			front
-		}
-		*/
 		return node;
 	}
-
-
-
 };
 
 
@@ -70,6 +63,22 @@ struct LinkQueue
 
 void QueneTest()
 {
+	LinkQueue queue;
+	QueueNode* node = new QueueNode();
+	node->val = 1;
+	queue.EnQueue(node);
+
+	QueueNode* node2 = new QueueNode();
+	node2->val = 2;
+	//queue.EnQueue(node2);
+
+	QueueNode* cur = nullptr;
+	while (!queue.IsEmpty())
+	{
+		cur = queue.DeQueue();
+		cout << cur->val << endl;
+	}
+	
 
 }
 
