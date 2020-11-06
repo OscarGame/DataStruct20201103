@@ -15,7 +15,8 @@ struct QueueNode
 	QueueNode* next;
 };
 
-//https://www.cnblogs.com/lanhaicode/p/10432004.html
+
+//https://www.cnblogs.com/libin123/p/10420138.html
 class LinkQueue 
 {
 private:
@@ -70,7 +71,7 @@ void QueneTest()
 
 	QueueNode* node2 = new QueueNode();
 	node2->val = 2;
-	//queue.EnQueue(node2);
+	queue.EnQueue(node2);
 
 	QueueNode* cur = nullptr;
 	while (!queue.IsEmpty())

@@ -84,6 +84,7 @@ void commonStack::pop()
     }
     StackNode* topOfStack = top;
     top = top->next;
+
     delete topOfStack;
     topOfStack = nullptr;
     mySize --;
@@ -103,7 +104,6 @@ void commonStack::clear()
         StackNode* topOfStack = top;
         top = top->next;
         delete topOfStack;
-
     }
     mySize = 0;
 }
