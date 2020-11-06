@@ -84,4 +84,4 @@ void QueneTest()
 }
 
 
-RegisterStructTestFunction2(QueneTest)
+//RegisterStructTestFunction2(QueneTest)

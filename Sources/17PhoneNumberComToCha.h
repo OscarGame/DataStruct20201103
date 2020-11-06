@@ -1,4 +1,7 @@
 #pragma once
+#include <stdio.h>
+#include <string.h>
+
 #include "TestFrame.h"
 
 
@@ -23,6 +26,8 @@ void findCombination(const string& digits, int index, const string& s){
         return;
     }
     char c = digits[index]; //获取字符串中的指定位置的数字
+	string g = letterMap['4' - '0'];
+
     string letters = letterMap[c -'0']; //获取上述数字对应的字母
     for(int i =0; i < letters.size(); i++){ //遍历上述数字对应字母的每种可能性，然后对之后的数字字符串递归上述操作
         findCombination(digits, index + 1, s + letters[i]);
@@ -43,6 +48,12 @@ void Test17()
 {
 	string aa = "23";
 	letterCombinations(aa);
+
+	for(int i = 0;i<res.size();i++)
+	{
+		printf("%s",res[i]);
+	}
+	
 }
 
-//RegisterStruct T17(&Test17);
+//RegisterStructTestFunction2(Test17);
