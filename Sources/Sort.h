@@ -51,7 +51,8 @@ void insertion_sort(int arr[], int length)
 		{
 			if (tmp < arr[j - 1])
 			{
-				arr[j] = arr[j - 1];
+				tmp = j - 1;
+				//arr[j] = arr[j - 1];
 			}
 			//display(arr, length);
 		}
@@ -92,6 +93,7 @@ void bubbleSort(int* a, int length)
       while(swapp)
 	  {
         swapp = false;
+
         for (int i = 0; i < length-1; i++) {
             if (a[i]>a[i+1] ){
 				Swap<int>(a[i],a[i+1]);
@@ -524,7 +526,7 @@ void TestSort()
 	int len = sizeof(arr)/ sizeof(arr[0]);
 
 
-	//selectSort(arr,len);
+	selectSort(arr,len);
 
 	//insertion_sort(arr,len);
 	//insertSort2(arr, len);
@@ -540,7 +542,7 @@ void TestSort()
 	//merge_sort2<int>(arr,len);
 	
 	//HeapSort(arr,len);
-	BucketSort();
+	//BucketSort();
 //	QSort(arr,6);
 	//QSort2(arr,0,5);
 	display(arr, len);

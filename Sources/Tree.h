@@ -298,7 +298,7 @@ void LevelOrderTraverse(TreeNode* tree)
 
 		bool IsEmpty()
 		{
-			bool empty = front >= rear ? true : false;
+			bool empty = front == rear ? true : false;
 			return empty;
 		}
 	}queue;
