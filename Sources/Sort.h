@@ -325,8 +325,6 @@ void HeapSort(int* arr,int len)
 		display(arr, len);
 	}
 
-	
-
 }
 
 /*

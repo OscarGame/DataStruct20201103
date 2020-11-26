@@ -73,15 +73,35 @@ void PreOrderTraverse(TreeNode* node)
 	}
 }
 
+template<typename T>
+struct templateStruct
+{
+	T* rawarray[10];
+
+	T* raw;
+	templateStruct(T* inRaw = nullptr) :raw(inRaw)
+	{
+		for (int i = 0 ; i<10 ; i++)
+		{
+			rawarray[10] = nullptr;
+		}
+	}
+
+	void push()
+	{
+	}
+
+};
+
 struct PreOrderTraverse2Stack
 {
 	TreeNode* stack[7];
 
 	PreOrderTraverse2Stack()
 	{
-		for (int i = 0 ;i < 7;i++)
+		for (int i =0 ; i < 7;i++)
 		{
-			//stack[i] = new TreeNode(0);
+			stack[i] = nullptr;
 		}
 	}
 
@@ -117,23 +137,27 @@ struct PreOrderTraverse2Stack
 // 根 左 右
 void PreOrderTraverse2(TreeNode* node)
 {
+
+	templateStruct<TreeNode> tem(node);
+	TreeNode* cur = tem.raw;
+
 	
 	PreOrderTraverse2Stack stack;
 	stack.Push(node);
 
 	while (!stack.IsEmpty())
 	{
-		TreeNode* left = stack.GetTopElement();
+		TreeNode* cur = stack.GetTopElement();
 		stack.Pop();
 
-		while (left)
+		while (cur)
 		{
-			displayElem(left);
-			if (left->right)
+			displayElem(cur);
+			if (cur->right)
 			{
-				stack.Push(left->right);
+				stack.Push(cur->right);
 			}
-			left = left->left;
+			cur = cur->left;
 		}
 	}
 
@@ -176,7 +200,7 @@ void InOderTraverse(TreeNode* node)
 	PreOrderTraverse2Stack stack;
 	TreeNode* p = node;
 
-	while (p != NULL || !stack.IsEmpty())
+	while (p != nullptr || !stack.IsEmpty())
 	{
 		//一直
 		while (p != NULL)
@@ -195,6 +219,7 @@ void InOderTraverse(TreeNode* node)
 }
 
 
+#include <stack>
 
 void PostOrderTraverse(TreeNode* tree)
 {
@@ -209,7 +234,7 @@ void PostOrderTraverse(TreeNode* tree)
 	while (!stack.IsEmpty())
 	{
 		p = stack.GetTopElement();
-		//	子节点的判断							根节点的判断(当前节点的右节点 == 上次访问过的 将该根节点Pop)
+		//	叶子节点的判断							根节点的判断(当前节点的右节点 == 上次访问过的 将该根节点Pop)
 		if ((p->left == nullptr && p->right == nullptr) || (p->right == last))
 		{
 			displayElem(p);
@@ -230,9 +255,6 @@ void PostOrderTraverse(TreeNode* tree)
 		}
 	}
 }
-
-
-
 
 
 
@@ -327,21 +349,21 @@ void LevelOrderTraverse(TreeNode* tree)
 
 void TraverseTest()
 {
-	//TreeNode* tree = CreateBTree();
+	TreeNode* tree = CreateBTree();
 
 	//PreOrderTraverse2(tree);
 	//PreOrderTraverse3(tree);
 
-	//InOderTraverse(tree);
+	InOderTraverse(tree);
 	//PostOrderTraverse(tree);
 
 	//=============================
-	TreeNode* tree = CreateBTree();
+	//TreeNode* tree = CreateBTree();
 	//int sum = 0;
 	//TreeSumOfLeftLeaves(tree,sum);
 	//cout << sum << endl;
 
-	LevelOrderTraverse(tree);
+	//LevelOrderTraverse(tree);
 }
 
 
@@ -400,4 +422,4 @@ void TreeTest()
 }
 
 
-//RegisterStruct RegisterTreeTest(&TreeTest);
+RegisterStruct RegisterTreeTest(&TreeTest);

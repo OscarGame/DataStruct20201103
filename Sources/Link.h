@@ -42,13 +42,13 @@ public:
 		}
 	}
 
-	LinkNode<T>*  DelNode()
+	LinkNode<T>*  PopNode()
 	{
 		if (head == nullptr)
 			return nullptr;
 		
-		LinkNode<T>* node = nullptr;
-		node = head;
+		LinkNode<T>* node = head;
+		
 		head = head->next;
 		return node;
 	}
@@ -74,8 +74,10 @@ public:
 		return pre;
 	}
 
-
 };
+
+
+
 
 void TestLink()
 {
@@ -94,7 +96,7 @@ void TestLink()
 		node = node->next;
 	}		
 
-	while (node = link.DelNode())
+	while (node = link.PopNode())
 	{
 		cout << node->mVal << endl;
 	}
