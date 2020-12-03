@@ -60,6 +60,34 @@ public:
 };
 
 
+struct FArrayQueue
+{
+	TreeNode* mQueue[7];
+	int front,rear;
+
+	FArrayQueue() :front(0),rear(0)
+	{
+
+	}
+
+	void Enqueue(TreeNode* node)
+	{
+		if (node)
+			mQueue[rear++] = node;
+	}
+
+	TreeNode* DeQueue()
+	{
+		return mQueue[front++];
+	}
+
+	bool IsEmpty()
+	{
+		return front == rear ? true : false;;
+	}
+};
+
+
 
 
 void QueneTest()

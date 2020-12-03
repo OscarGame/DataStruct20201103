@@ -11,6 +11,7 @@ using std::set;
 
 bool isContain(vector<char>& invec ,char incha)
 {
+	
 	for each (char cha in invec)
 	{
 		if (cha == incha)

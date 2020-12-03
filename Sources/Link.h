@@ -102,4 +102,4 @@ void TestLink()
 	}
 }
 
-RegisterStructTestFunction2(TestLink);
+//RegisterStructTestFunction2(TestLink);

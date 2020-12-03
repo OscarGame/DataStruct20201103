@@ -7,6 +7,14 @@
 #include <vector>
 using namespace std;
 
+
+
+/*
+≈≈–Ú
+https://blog.csdn.net/MoreWindows/article/details/6967409
+*/
+
+
 template<typename T>
 void Swap(T& a,T& b)
 {
@@ -549,4 +557,4 @@ void TestSort()
 }
 
 
-//RegisterStruct Sort1(&TestSort);
+RegisterStruct Sort1(&TestSort);
