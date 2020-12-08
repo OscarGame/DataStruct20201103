@@ -557,4 +557,4 @@ void TestSort()
 }
 
 
-RegisterStruct Sort1(&TestSort);
+//RegisterStruct Sort1(&TestSort);
